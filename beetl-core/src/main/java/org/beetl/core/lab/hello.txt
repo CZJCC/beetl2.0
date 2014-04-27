@@ -1,6 +1,6 @@
 <%
-var a = 11;
-debug(a);
+var b = strutil.length("hello");
 %>
+${b}
 
-sfsfsdf ${a} dfdsfdsfds
+
