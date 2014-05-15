@@ -28,7 +28,6 @@
 package org.beetl.core.statement;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.beetl.core.Context;
@@ -41,24 +40,24 @@ import org.beetl.core.InferContext;
 public class JsonArrayExpression extends Expression
 {
 
-	List<Expression> list;
+	public Expression[] array;
 
 	public JsonArrayExpression(List<Expression> list, GrammarToken token)
 	{
 		super(token);
-		this.list = list;
+		this.array = list.toArray(new Expression[0]);
 	}
 
 	public Object evaluate(Context ctx)
 	{
-		if (list.size() == 0)
+		if (array.length == 0)
 		{
-			return Collections.EMPTY_LIST;
+			return new ArrayList();
 		}
 		else
 		{
-			List values = new ArrayList(list.size());
-			for (Expression exp : list)
+			List values = new ArrayList(array.length);
+			for (Expression exp : array)
 			{
 				values.add(exp.evaluate(ctx));
 			}
@@ -71,7 +70,7 @@ public class JsonArrayExpression extends Expression
 	public void infer(InferContext inferCtx)
 	{
 
-		for (Expression exp : list)
+		for (Expression exp : array)
 		{
 			exp.infer(inferCtx);
 		}

@@ -1,7 +1,7 @@
 <%
-var b = isEmpty(user.bir);
-%>
-${b}
-${user.bir}
+for(i in range(1,5)){
+print(i);
+}
 
+%>
 

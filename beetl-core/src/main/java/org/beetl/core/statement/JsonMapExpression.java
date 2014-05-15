@@ -27,7 +27,6 @@
  */
 package org.beetl.core.statement;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -44,18 +43,20 @@ public class JsonMapExpression extends Expression
 {
 
 	Map<String, Expression> map;
+	public Expression[] array;
 
 	public JsonMapExpression(Map<String, Expression> map, GrammarToken token)
 	{
 		super(token);
 		this.map = map;
+		array = map.values().toArray(new Expression[0]);
 	}
 
 	public Object evaluate(Context ctx)
 	{
 		if (map.size() == 0)
 		{
-			return Collections.EMPTY_MAP;
+			return new HashMap();
 		}
 		else
 		{
@@ -73,7 +74,7 @@ public class JsonMapExpression extends Expression
 	public void infer(InferContext inferCtx)
 	{
 
-		for (Expression exp : map.values())
+		for (Expression exp : array)
 		{
 			exp.infer(inferCtx);
 		}
